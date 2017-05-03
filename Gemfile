@@ -14,6 +14,7 @@ gem 'sqlite3'
 gem 'puma', '~> 3.0'
 gem 'devise_token_auth'
 gem 'omniauth', '~> 1.6', '>= 1.6.1'
+gem 'annotate'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
