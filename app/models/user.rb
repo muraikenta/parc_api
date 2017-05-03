@@ -25,14 +25,6 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
-
-class User < ActiveRecord::Base
-  # Include default devise modules.
-  devise :database_authenticatable, :registerable,
-          :recoverable, :rememberable, :trackable, :validatable,
-          :confirmable, :omniauthable
-  include DeviseTokenAuth::Concerns::User
-end
 # Indexes
 #
 #  index_users_on_confirmation_token    (confirmation_token) UNIQUE
@@ -40,3 +32,10 @@ end
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #
+
+class User < ActiveRecord::Base
+  devise :database_authenticatable, :registerable,
+          :recoverable, :rememberable, :trackable, :validatable,
+          :omniauthable # temporally remove :confirmable
+  include DeviseTokenAuth::Concerns::User
+end
