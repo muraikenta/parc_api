@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20170503015644) do
     t.integer  "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id", "post_id"], name: "index_favorites_on_user_id_and_post_id"
   end
 
   create_table "follows", force: :cascade do |t|
@@ -24,21 +25,24 @@ ActiveRecord::Schema.define(version: 20170503015644) do
     t.integer  "target_user_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.index ["user_id", "target_user_id"], name: "index_follows_on_user_id_and_target_user_id"
   end
 
   create_table "messages", force: :cascade do |t|
     t.text     "message"
-    t.integer  "from_user_id"
-    t.integer  "to_user_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "user_id"
+    t.integer  "target_user_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["user_id", "target_user_id"], name: "index_messages_on_user_id_and_target_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
     t.text     "content"
-    t.string   "image"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "posts_tags", force: :cascade do |t|
@@ -71,7 +75,6 @@ ActiveRecord::Schema.define(version: 20170503015644) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.string   "name"
-    t.string   "nickname"
     t.string   "image"
     t.string   "email"
     t.text     "tokens"
