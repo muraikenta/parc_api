@@ -3,7 +3,7 @@
 # Table name: messages
 #
 #  id             :integer          not null, primary key
-#  message        :text
+#  body           :text
 #  user_id        :integer
 #  target_user_id :integer
 #  created_at     :datetime         not null
@@ -19,7 +19,7 @@
 class Message < ApplicationRecord
   validates :user, presence: true
   validates :target_user_id, presence: true
-  validates :message, presence: true
+  validates :body, presence: true
 
   belongs_to :user
   belongs_to :target_user, class_name: 'User', foreign_key: 'target_user_id'
