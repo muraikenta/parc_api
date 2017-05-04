@@ -12,7 +12,7 @@
 #
 #  index_follows_on_target_user_id              (target_user_id)
 #  index_follows_on_user_id                     (user_id)
-#  index_follows_on_user_id_and_target_user_id  (user_id,target_user_id)
+#  index_follows_on_user_id_and_target_user_id  (user_id,target_user_id) UNIQUE
 #
 
 class Follow < ApplicationRecord
