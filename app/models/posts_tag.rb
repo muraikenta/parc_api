@@ -10,7 +10,7 @@
 #
 # Indexes
 #
-#  index_posts_tags_on_post_id_and_tag_id  (,)
+#  index_posts_tags_on_post_id_and_tag_id  (,) UNIQUE
 #  index_posts_tags_on_post_id_id          (post_id_id)
 #  index_posts_tags_on_tag_id_id           (tag_id_id)
 #

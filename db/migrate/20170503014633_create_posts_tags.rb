@@ -7,6 +7,6 @@ class CreatePostsTags < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
-    add_index :posts_tags, [:post_id, :tag_id]
+    add_index :posts_tags, [:post_id, :tag_id], unique: true
   end
 end

@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20170503015644) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_favorites_on_post_id"
-    t.index ["user_id", "post_id"], name: "index_favorites_on_user_id_and_post_id"
+    t.index ["user_id", "post_id"], name: "index_favorites_on_user_id_and_post_id", unique: true
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20170503015644) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.index ["target_user_id"], name: "index_follows_on_target_user_id"
-    t.index ["user_id", "target_user_id"], name: "index_follows_on_user_id_and_target_user_id"
+    t.index ["user_id", "target_user_id"], name: "index_follows_on_user_id_and_target_user_id", unique: true
     t.index ["user_id"], name: "index_follows_on_user_id"
   end
 
@@ -58,13 +58,14 @@ ActiveRecord::Schema.define(version: 20170503015644) do
     t.datetime "updated_at", null: false
     t.index ["post_id_id"], name: "index_posts_tags_on_post_id_id"
     t.index ["tag_id_id"], name: "index_posts_tags_on_tag_id_id"
-    t.index [nil, nil], name: "index_posts_tags_on_post_id_and_tag_id"
+    t.index [nil, nil], name: "index_posts_tags_on_post_id_and_tag_id", unique: true
   end
 
   create_table "tags", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
