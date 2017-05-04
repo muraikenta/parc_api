@@ -17,4 +17,7 @@
 #
 
 class Message < ApplicationRecord
+  validates :user, presence: true
+  validates :target_user_id, presence: true
+  validates :message, presence: true
 end
