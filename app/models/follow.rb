@@ -16,4 +16,7 @@
 #
 
 class Follow < ApplicationRecord
+  validates :user, presence: true
+  validates :target_user_id, presence: true
+  validates :user_id, uniqueness: { scope: [:target_user_id] }
 end
