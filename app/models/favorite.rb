@@ -12,8 +12,11 @@
 #
 #  index_favorites_on_post_id              (post_id)
 #  index_favorites_on_user_id              (user_id)
-#  index_favorites_on_user_id_and_post_id  (user_id,post_id)
+#  index_favorites_on_user_id_and_post_id  (user_id,post_id) UNIQUE
 #
 
 class Favorite < ApplicationRecord
+  validates :user, presence: true
+  validates :post, presence: true
+  validates :user_id, uniqueness: { scope: [:post_id] }
 end
