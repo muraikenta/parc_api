@@ -14,7 +14,10 @@
 #
 
 class Post < ApplicationRecord
-  belongs_to :user
   validates :user, presence: true
   validates :content, presence: true
+
+  belongs_to :user
+  has_many :favorites, dependent: :destroy
+  has_many :favoriting_users, class_name: 'User', through: :favorites
 end

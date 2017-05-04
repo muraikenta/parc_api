@@ -41,4 +41,17 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   validates :name, presence: true
+
+  has_many :posts, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+
+  # Follow relations
+  has_many :active_relationships, class_name: 'Follow', foreign_key: 'user_id', dependent: :destroy
+  has_many :passive_relationships, class_name: 'Follow', foreign_key: 'target_user_id', dependent: :destroy
+
+  has_many :followings, -> { order('follows.id desc') }, through: :active_relationships,  source: :target_user
+  has_many :followers, -> { order('follows.id desc') }, through: :passive_relationships, source: :user
+
+  has_many :active_messages, class_name: 'Message', foreign_key: 'user_id', dependent: :destroy
+  has_many :passive_messages, class_name: 'Message', foreign_key: 'target_user_id', dependent: :destroy
 end
