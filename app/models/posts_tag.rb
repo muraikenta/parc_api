@@ -16,4 +16,7 @@
 #
 
 class PostsTag < ApplicationRecord
+  validates :post, presence: true
+  validates :tag, presence: true
+  validates :post_id, uniqueness: { scope: [:tag_id] }
 end
