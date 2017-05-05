@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170503015644) do
+ActiveRecord::Schema.define(version: 20170505013909) do
 
   create_table "favorites", force: :cascade do |t|
     t.integer  "user_id"
@@ -58,7 +58,6 @@ ActiveRecord::Schema.define(version: 20170503015644) do
     t.datetime "updated_at", null: false
     t.index ["post_id_id"], name: "index_posts_tags_on_post_id_id"
     t.index ["tag_id_id"], name: "index_posts_tags_on_tag_id_id"
-    t.index [nil, nil], name: "index_posts_tags_on_post_id_and_tag_id", unique: true
   end
 
   create_table "tags", force: :cascade do |t|
@@ -90,6 +89,7 @@ ActiveRecord::Schema.define(version: 20170503015644) do
     t.text     "tokens"
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
+    t.text     "profile"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
