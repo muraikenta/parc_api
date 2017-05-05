@@ -17,9 +17,9 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = current_user.update(
+    current_user.update(
       profile: params[:profile]
     )
-    render json: user
+    render json: current_user
   end
 end
