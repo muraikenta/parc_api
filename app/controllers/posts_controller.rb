@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   def index
     @posts = Post.all
-    render :index
+    render :index, formats: 'json', handlers: 'jbuilder'
   end
 
   def create
