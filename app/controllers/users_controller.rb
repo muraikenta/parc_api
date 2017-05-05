@@ -7,12 +7,12 @@ class UsersController < ApplicationController
   def follow
     @user = User.find(params[:id])
     current_user.follow!(@user)
-    render_success
+    render :show
   end
 
   def unfollow
     @user = User.find(params[:id])
     current_user.unfollow!(@user)
-    render_success
+    render :show
   end
 end
