@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
     self.favorites.find_by(post: post).destroy!
   end
 
-  def favorite?(post)
+  def favorited?(post)
     self.favorites.find_by(post: post).present?
   end
 end
