@@ -7,5 +7,11 @@ Rails.application.routes.draw do
       delete :unfavorite
     end
   end
-  resources :users, only: [:show]
+
+  resources :users, only: [:show] do
+    member do
+      post :follow
+      delete :unfollow
+    end
+  end
 end

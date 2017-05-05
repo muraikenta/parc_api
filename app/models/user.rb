@@ -66,4 +66,16 @@ class User < ActiveRecord::Base
   def favorite?(post)
     self.favorites.find_by(post: post).present?
   end
+
+  def follow!(user)
+    self.followings.create!(target_user: user)
+  end
+
+  def unfollow!(user)
+    self.followings.find_by(target_user: user).destroy!
+  end
+
+  def follow?(user)
+    self.followings.find_by(target_user: user).present?
+  end
 end
