@@ -20,6 +20,6 @@ class Favorite < ApplicationRecord
   validates :post, presence: true
   validates :user_id, uniqueness: { scope: [:post_id] }
 
-  belongs_to :user
-  belongs_to :post
+  belongs_to :user, counter_cache: :favorites_count
+  belongs_to :post, counter_cache: :favorites_count
 end

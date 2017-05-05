@@ -24,6 +24,7 @@
 #  tokens                 :text
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  favorites_count        :integer          default("0")
 #  profile                :text
 #
 # Indexes
