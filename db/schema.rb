@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20170505013909) do
     t.datetime "updated_at", null: false
     t.index ["post_id_id"], name: "index_posts_tags_on_post_id_id"
     t.index ["tag_id_id"], name: "index_posts_tags_on_tag_id_id"
+    t.index [nil, nil], name: "index_posts_tags_on_post_id_and_tag_id", unique: true
   end
 
   create_table "tags", force: :cascade do |t|
