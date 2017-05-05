@@ -9,4 +9,16 @@ class PostsController < ApplicationController
     )
     render json: post
   end
+
+  def favorite
+    @post = Post.find(params[:id])
+    current_user.favorite!(@post)
+    render :show
+  end
+
+  def unfavorite
+    @post = Post.find(params[:id])
+    current_user.unfavorite!(@post)
+    render :show
+  end
 end
