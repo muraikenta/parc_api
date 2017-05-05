@@ -4,10 +4,21 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = Post.create(
-      user: User.first, # replace with current_user
-      content: params[:post][:content]
+    post = current_user.posts.create(
+      content: params[:post][:content],
     )
     render json: post
+  end
+
+  def favorite
+    @post = Post.find(params[:id])
+    current_user.favorite!(@post)
+    render :show
+  end
+
+  def unfavorite
+    @post = Post.find(params[:id])
+    current_user.unfavorite!(@post)
+    render :show
   end
 end

@@ -55,4 +55,16 @@ class User < ActiveRecord::Base
 
   has_many :active_messages, class_name: 'Message', foreign_key: 'user_id', dependent: :destroy
   has_many :passive_messages, class_name: 'Message', foreign_key: 'target_user_id', dependent: :destroy
+
+  def favorite!(post)
+    self.favorites.create!(post: post)
+  end
+
+  def unfavorite!(post)
+    self.favorites.find_by(post: post).destroy!
+  end
+
+  def favorite?(post)
+    self.favorites.find_by(post: post).present?
+  end
 end
