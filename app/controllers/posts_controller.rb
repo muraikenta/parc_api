@@ -20,6 +20,7 @@ class PostsController < ApplicationController
   def unfavorite
     @post = Post.find(params[:id])
     current_user.unfavorite!(@post)
+    @post.reload
     render :show, formats: 'json', handlers: 'jbuilder'
   end
 end
