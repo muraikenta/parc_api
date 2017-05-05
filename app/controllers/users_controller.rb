@@ -15,4 +15,11 @@ class UsersController < ApplicationController
     current_user.unfollow!(@user)
     render :show, formats: 'json', handlers: 'jbuilder'
   end
+
+  def update
+    user = current_user.update(
+      profile: params[:profile]
+    )
+    render json: user
+  end
 end

@@ -24,6 +24,7 @@
 #  tokens                 :text
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  profile                :text
 #
 # Indexes
 #
@@ -35,8 +36,8 @@
 
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
-          :recoverable, :rememberable, :trackable, :validatable,
-          :omniauthable # temporally remove :confirmable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable # temporally remove :confirmable
 
   include DeviseTokenAuth::Concerns::User
 
@@ -49,7 +50,7 @@ class User < ActiveRecord::Base
   has_many :active_relationships, class_name: 'Follow', foreign_key: 'user_id', dependent: :destroy
   has_many :passive_relationships, class_name: 'Follow', foreign_key: 'target_user_id', dependent: :destroy
 
-  has_many :followings, -> { order('follows.id desc') }, through: :active_relationships,  source: :target_user
+  has_many :followings, -> { order('follows.id desc') }, through: :active_relationships, source: :target_user
   has_many :followers, -> { order('follows.id desc') }, through: :passive_relationships, source: :user
 
   has_many :active_messages, class_name: 'Message', foreign_key: 'user_id', dependent: :destroy
@@ -63,7 +64,7 @@ class User < ActiveRecord::Base
     self.favorites.find_by(post: post).destroy!
   end
 
-  def favorite?(post)
+  def favorited?(post)
     self.favorites.find_by(post: post).present?
   end
 
