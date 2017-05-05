@@ -68,14 +68,14 @@ class User < ActiveRecord::Base
   end
 
   def follow!(user)
-    self.followings.create!(target_user: user)
+    self.active_relationships.create!(target_user: user)
   end
 
   def unfollow!(user)
-    self.followings.find_by(target_user: user).destroy!
+    self.active_relationships.find_by(target_user: user).destroy!
   end
 
   def follow?(user)
-    self.followings.find_by(target_user: user).present?
+    self.active_relationships.find_by(target_user: user).present?
   end
 end
