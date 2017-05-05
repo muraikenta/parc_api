@@ -20,6 +20,6 @@ class UsersController < ApplicationController
     user = current_user.update(
       profile: params[:profile]
     )
-    render json: user
+    render json: current_user
   end
 end
