@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.all
+    @posts = current_user.timeline_posts.includes(:user)
     render :index, formats: 'json', handlers: 'jbuilder'
   end
 
