@@ -80,4 +80,9 @@ class User < ActiveRecord::Base
   def follow?(user)
     self.active_relationships.find_by(target_user: user).present?
   end
+
+  def timeline_posts
+    users = self.followings + [self]
+    return Post.where(user: users).ordered
+  end
 end
