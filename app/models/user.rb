@@ -38,9 +38,11 @@
 #
 
 class User < ActiveRecord::Base
+  attr_accessor :login
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable # temporally remove :confirmable
+         :omniauthable, :authentication_keys => [:login] # temporally remove :confirmable
 
   include DeviseTokenAuth::Concerns::User
 
@@ -89,5 +91,9 @@ class User < ActiveRecord::Base
   def timeline_posts
     users = self.followings + [self]
     return Post.where(user: users).ordered
+  end
+
+  def self.find_for_login(value)
+    self.where(provider: :email).where("lower(username) = :value OR lower(email) = :value", { :value => value.downcase }).first
   end
 end
