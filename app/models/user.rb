@@ -26,6 +26,7 @@
 #  updated_at             :datetime         not null
 #  favorites_count        :integer          default("0")
 #  profile                :text
+#  username               :string
 #
 # Indexes
 #
@@ -33,6 +34,7 @@
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
+#  index_users_on_username              (username) UNIQUE
 #
 
 class User < ActiveRecord::Base
@@ -43,6 +45,9 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   validates :name, presence: true
+  validates :username,
+    uniqueness: { case_sensitive: :false },
+    length: { minimum: 4, maximum: 20 }
 
   has_many :posts, dependent: :destroy
   has_many :favorites, dependent: :destroy
