@@ -42,14 +42,12 @@ class User < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, :authentication_keys => [:login] # temporally remove :confirmable
+         :omniauthable, authentication_keys: [:login] # temporally remove :confirmable
 
   include DeviseTokenAuth::Concerns::User
 
   validates :name, presence: true
-  validates :username,
-    uniqueness: { case_sensitive: :false },
-    length: { minimum: 4, maximum: 20 }
+  validates :username, uniqueness: { case_sensitive: :false }, length: { minimum: 4, maximum: 20 }
 
   has_many :posts, dependent: :destroy
   has_many :favorites, dependent: :destroy
@@ -94,6 +92,6 @@ class User < ActiveRecord::Base
   end
 
   def self.find_for_login(value)
-    self.where(provider: :email).where("lower(username) = :value OR lower(email) = :value", { :value => value.downcase }).first
+    self.where(provider: :email).find_by("lower(username) = '#{value.downcase}' OR lower(email) = '#{value.downcase}'")
   end
 end
