@@ -24,9 +24,12 @@
 #  tokens                 :text
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  favorites_count        :integer          default("0")
 #  profile                :text
+#  favorites_count        :integer          default("0")
 #  username               :string
+#  posts_count            :integer          default("0")
+#  followings_count       :integer          default("0")
+#  followers_count        :integer          default("0")
 #
 # Indexes
 #

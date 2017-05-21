@@ -18,7 +18,7 @@ class Post < ApplicationRecord
   validates :user, presence: true
   validates :content, presence: true
 
-  belongs_to :user
+  belongs_to :user, counter_cache: true
   has_many :favorites, dependent: :destroy
   has_many :favoriting_users, through: :favorites, source: :user
 
