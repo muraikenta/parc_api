@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only: %i[show update] do
+  resources :users, param: :username, only: %i[show update] do
     member do
       post :follow
       delete :unfollow
