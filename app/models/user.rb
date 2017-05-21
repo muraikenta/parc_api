@@ -26,6 +26,7 @@
 #  updated_at             :datetime         not null
 #  favorites_count        :integer          default("0")
 #  profile                :text
+#  username               :string
 #
 # Indexes
 #
@@ -33,16 +34,20 @@
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
+#  index_users_on_username              (username) UNIQUE
 #
 
 class User < ActiveRecord::Base
+  attr_accessor :login
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable # temporally remove :confirmable
+         :omniauthable, authentication_keys: [:login] # temporally remove :confirmable
 
   include DeviseTokenAuth::Concerns::User
 
   validates :name, presence: true
+  validates :username, uniqueness: { case_sensitive: :false }, length: { minimum: 4, maximum: 20 }
 
   has_many :posts, dependent: :destroy
   has_many :favorites, dependent: :destroy
@@ -84,5 +89,9 @@ class User < ActiveRecord::Base
   def timeline_posts
     users = self.followings + [self]
     return Post.where(user: users).ordered
+  end
+
+  def self.find_for_login(value)
+    self.where(provider: :email).find_by("lower(username) = '#{value.downcase}' OR lower(email) = '#{value.downcase}'")
   end
 end
