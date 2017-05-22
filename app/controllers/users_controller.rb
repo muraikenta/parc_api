@@ -1,18 +1,22 @@
 class UsersController < ApplicationController
   def show
-    @user = User.find_by(username: params[:username])
+    # expect params[:id] to be username
+    @user = User.find_by(username: params[:id])
+    render status: :not_found and return unless @user
     render :show, formats: 'json', handlers: 'jbuilder'
   end
 
   def follow
-    @user = User.find_by(username: params[:username])
+    @user = User.find(params[:id])
     current_user.follow!(@user)
+    @user.reload
     render :show, formats: 'json', handlers: 'jbuilder'
   end
 
   def unfollow
-    @user = User.find_by(username: params[:username])
+    @user = User.find(params[:id])
     current_user.unfollow!(@user)
+    @user.reload
     render :show, formats: 'json', handlers: 'jbuilder'
   end
 

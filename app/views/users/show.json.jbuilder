@@ -2,6 +2,7 @@ json.call(
   @user,
   :id,
   :name,
+  :username,
   :email,
   :image,
   :posts_count,
