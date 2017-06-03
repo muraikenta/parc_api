@@ -20,6 +20,10 @@ class Follow < ApplicationRecord
   validates :target_user_id, presence: true
   validates :user_id, uniqueness: { scope: [:target_user_id] }
 
-  belongs_to :user
-  belongs_to :target_user, class_name: 'User', foreign_key: 'target_user_id'
+  belongs_to :user, counter_cache: :followings_count
+
+  belongs_to :target_user,
+             class_name: 'User',
+             counter_cache: :followers_count,
+             foreign_key: 'target_user_id'
 end
